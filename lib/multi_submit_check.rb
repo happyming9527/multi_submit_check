@@ -50,7 +50,7 @@ module MultiSubmitCheck
 
 end
 
-class ActionView::Helpers::FormHelper
+module ActionView::Helpers::FormHelper
   include MultiSubmitCheck::FormHelperHack
 end
 
