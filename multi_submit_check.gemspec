@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = MultiSubmitCheck::VERSION
   spec.authors       = ["happyMing"]
   spec.email         = ["339755551@qq.com"]
-  spec.summary       = %q{TODO: Write a short summary. Required.}
-  spec.description   = %q{TODO: Write a longer description. Optional.}
+  spec.summary       = %q{基于rails4，在rails中添加config.multi_submit_check = true可以开启所有form_tag生成的表单，自动创建token。}
+  spec.description   = %q{创建表单时，会创建和token配对的session，会进行表单重复提交的验证。}
   spec.homepage      = ""
   spec.license       = "MIT"
 

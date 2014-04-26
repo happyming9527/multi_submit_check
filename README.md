@@ -1,6 +1,6 @@
 # MultiSubmitCheck
 
-TODO: Write a gem description
+use to validate form multiply submit
 
 ## Installation
 
@@ -18,7 +18,10 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+you can use method  'token_field' to add a hash token to you form ,or make a
+configuration 'config.multi_submit_check = true' in application.rb file to 
+automatically make token for every form made by 'form_for' and 'form_for'
+methods.In default the configuration is false.
 
 ## Contributing
 

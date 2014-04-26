@@ -5,15 +5,6 @@ module MultiSubmitCheck
   #form表单修改
   module FormHelperHack
 
-    def form_tag_in_block(html_options, &block)
-      content = capture(&block)
-      output = ActiveSupport::SafeBuffer.new
-      output.safe_concat(form_tag_html(html_options))
-      output<<token_field #给form_tag方法添加验证是否重复提交表单的hash串
-      output << content
-      output.safe_concat("</form>")
-    end
-
     def token_field
       tk = Digest::SHA1.hexdigest((Time.now.to_i + rand(0xffffff)).to_s)[0..20]
       #生成session的名字和当前请求路径一样。
@@ -51,9 +42,23 @@ module MultiSubmitCheck
 end
 
 module ActionView::Helpers::FormHelper
-  include MultiSubmitCheck::FormHelperHack
+
+  #覆写form_tag_in_block方法
+  def form_tag_in_block(html_options, &block)
+    content = capture(&block)
+    output = form_tag_html(html_options)
+    if (Rails.configuration.multiple_submit_check rescue false)
+      output << token_field   #给form_tag方法添加验证是否重复提交表单的hash串
+    end
+    output << content
+    output.safe_concat("</form>")
+  end
 end
 
 class ActionController::Base
   include MultiSubmitCheck::ControllerBaseHack
+end
+
+module  ApplicationHelper
+  include MultiSubmitCheck::FormHelperHack
 end
